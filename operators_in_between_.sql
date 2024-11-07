@@ -103,3 +103,215 @@ FROM
     `shop`.`customers`
 WHERE
     cname LIKE '%/%%' escape '/';
+
+/*Применение символов ислючения при помощи scape */
+SELECT 
+    `customers`.`cnum`,
+    `customers`.`cname`,
+    `customers`.`city`,
+    `customers`.`rating`,
+    `customers`.`snum`
+FROM
+    `shop`.`customers`
+WHERE
+    cname LIKE '%/%%' escape '/';
+
+ /* Оператор Is NULL*/
+
+SELECT 
+    `customers`.`cnum`,
+    `customers`.`cname`,
+    `customers`.`city`,
+    `customers`.`rating`,
+    `customers`.`snum`
+FROM
+    `shop`.`customers`
+WHERE
+ snum is not null;
+
+/* В MySQL не выполняется эвивалентный предыдущему запрос с условием not is null
+SELECT 
+    `customers`.`cnum`,
+    `customers`.`cname`,
+    `customers`.`city`,
+    `customers`.`rating`,
+    `customers`.`snum`
+FROM
+    `shop`.`customers`
+WHERE
+    snum is not null;
+*/
+
+/* NOT c IN*/
+SELECT 
+    `customers`.`cnum`,
+    `customers`.`cname`,
+    `customers`.`city`,
+    `customers`.`rating`,
+    `customers`.`snum`
+FROM
+    `shop`.`customers`
+WHERE
+    `customers`.`city` NOT IN ('Новосибирск' , 'Омск');
+
+SELECT 
+    `customers`.`cnum`,
+    `customers`.`cname`,
+    `customers`.`city`,
+    `customers`.`rating`,
+    `customers`.`snum`
+FROM
+    `shop`.`customers`
+WHERE
+   not `customers`.`city` NOT IN ('Новосибирск' , 'Омск');
+
+/* Комбинирование is null  с другими операторами отбора */
+SELECT 
+    `customers`.`cnum`,
+    `customers`.`cname`,
+    `customers`.`city`,
+    `customers`.`rating`,
+    `customers`.`snum`
+FROM
+    `shop`.`customers`
+WHERE
+   city LIKE 'Нов%' or `customers`.`rating` IS NULL;
+
+SELECT 
+    `customers`.`cnum`,
+    `customers`.`cname`,
+    `customers`.`city`,
+    `customers`.`rating`,
+    `customers`.`snum`
+FROM
+    `shop`.`customers`
+WHERE
+  not (city LIKE 'Нов%' and `customers`.`rating` IS NULL);
+
+/* Агрегатные функции */
+/*count(), sum(), avg(), max(), min() */
+
+/*Подсчёт суммы чисел по определённому столбцу */
+SELECT 
+    SUM(amount)
+FROM
+    sales;
+
+    /*Подсчёт количества строк */
+    SELECT 
+    COUNT(*)
+FROM
+    sales
+WHERE
+    sdate > '2024-09-01'
+        AND sdate < '2024-09-30';
+
+	/*Подсчёт среднего значения за определённый период*/
+SELECT 
+    AVG(amount)
+FROM
+    sales
+WHERE
+    sdate > '2024-09-01'
+        AND sdate <= '2024-09-30';
+
+	SELECT 
+	    AVG(sdate)
+	FROM
+	    sales
+	    where sdate > '2024-09-15'
+	        AND sdate <= '2024-09-30';
+
+		SELECT 
+		    AVG(amount)
+		FROM
+		    sales
+		WHERE
+		    sdate > '2024-09-01'
+		        AND sdate <= '2024-09-30';
+
+			SELECT 
+			    AVG(sdate)
+			FROM
+			    sales
+			    where sdate > '2024-09-15'
+			        AND sdate <= '2024-09-30';
+
+				  /*При использовании distinct внутри функции count() подсчитывается уникальное значение в столбце */      
+SELECT 
+    COUNT(distinct city)
+FROM
+    customers;
+/*Null значение игнорируются при подсчёте по одному столбцу */
+SELECT 
+    COUNT(rating)
+FROM
+    customers;
+
+/*ункция MAX() и MIN() работают со строковыми значениями, ориентируясь на алфавитный порядок*/
+SELECT 
+    MAX(cname)
+FROM
+    customers;
+
+SELECT 
+    min(cname)
+FROM
+    customers;
+
+/*Группировка максимальных значений продаж по каждому продавцу*/
+SELECT 
+    snum, MAX(amount)
+FROM
+    sales
+GROUP BY snum;
+
+/*Группировка значений по нескольким столбцам*/
+SELECT 
+    snum, sdate, MAX(amount)
+FROM
+    sales
+GROUP BY snum, sdate;
+
+/*Отбор значений после группировки осуществялется с помощью специального выражения HAVING */
+/*WHERE тбирает строки до группировки и не может содержать агрегатные функции */
+SELECT 
+    snum, sdate, MAX(amount)
+FROM
+    sales
+GROUP BY snum , sdate
+HAVING MAX(amount) > 1000;
+
+SELECT 
+    snum, sdate, MAX(amount)
+FROM
+    sales
+GROUP BY snum , sdate
+HAVING MAX(amount) > 1000;
+
+/*having можно использовать только для сгруппированных столбцов*/
+SELECT 
+    snum, sdate, MAX(amount)
+FROM
+    sales
+GROUP BY snum , sdate
+HAVING sdate > '2024-09-15';
+
+/*Если в группировке не используется поле, по которому нужно сделать отбор, то используется только выражение where*/
+SELECT 
+    snum, MAX(amount)
+FROM
+    sales
+WHERE
+    sdate > '2024-09-15'
+HAVING snum;
+
+/* Использование IN с  HAVING */
+SELECT 
+    snum, MAX(amount)
+FROM
+    sales
+WHERE
+    sdate > '2024-09-15'
+group by snum
+having snum IN (101, 106);
