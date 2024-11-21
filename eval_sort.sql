@@ -28,7 +28,7 @@ WHERE
     sdate < '2024-09-01' + INTERVAL 14 DAY
         AND sdate > '2024-09-01' - INTERVAL 14 DAY;
 
-	/*Использование выражения INTERVAL для указания количества месяцев*/
+/*Использование выражения INTERVAL для указания количества месяцев*/
 SELECT 
     sdate
 FROM
@@ -37,7 +37,7 @@ WHERE
     sdate > '2024-09-01'
         AND sdate < '2024-09-01' + INTERVAL 1 MONTH;
 
-	/*Сортировка значений */
+/*Сортировка значений */
 SELECT 
     *
 FROM

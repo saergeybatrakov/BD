@@ -23,12 +23,12 @@ DROP TABLE IF EXISTS `customers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `customers` (
-	  `cnum` int NOT NULL,
-	  `cname` varchar(25) NOT NULL,
-	  `city` varchar(25) DEFAULT NULL,
-	  `rating` int DEFAULT '100',
-	  `snum` int DEFAULT NULL,
-	  PRIMARY KEY (`cnum`)
+  `cnum` int NOT NULL,
+  `cname` varchar(25) NOT NULL,
+  `city` varchar(25) DEFAULT NULL,
+  `rating` int DEFAULT '100',
+  `snum` int DEFAULT NULL,
+  PRIMARY KEY (`cnum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -50,11 +50,11 @@ DROP TABLE IF EXISTS `sales`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sales` (
-	  `snum` int NOT NULL,
-	  `cnum` varchar(45) NOT NULL,
-	  `sdate` date NOT NULL,
-	  `amount` double(7,2) NOT NULL,
-	  PRIMARY KEY (`snum`,`cnum`,`sdate`)
+  `snum` int NOT NULL,
+  `cnum` varchar(45) NOT NULL,
+  `sdate` date NOT NULL,
+  `amount` double(7,2) NOT NULL,
+  PRIMARY KEY (`snum`,`cnum`,`sdate`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -76,11 +76,11 @@ DROP TABLE IF EXISTS `salespeaple`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `salespeaple` (
-	  `snum` int NOT NULL,
-	  `sname` varchar(25) NOT NULL,
-	  `city` varchar(25) DEFAULT NULL,
-	  `comm` decimal(3,2) DEFAULT NULL,
-	  PRIMARY KEY (`snum`)
+  `snum` int NOT NULL,
+  `sname` varchar(25) NOT NULL,
+  `city` varchar(25) DEFAULT NULL,
+  `comm` decimal(3,2) DEFAULT NULL,
+  PRIMARY KEY (`snum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

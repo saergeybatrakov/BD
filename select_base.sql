@@ -21,7 +21,7 @@ FROM
     `shop`.`salespeaple`
 WHERE
     `salespeaple`.`city` = 'Сочи' or `salespeaple`.`city` = 'Новосибирск';
-
+    
 /* Отбор продавцов из определённых городов */
 SELECT 
 `customers`.`cname`,
@@ -30,7 +30,7 @@ FROM
    `shop`.`customers`
 WHERE
     `customers`.`rating` >200;
-
+    
 SELECT 
 `customers`.`cname`,
 `customers`.`city`
@@ -38,7 +38,7 @@ FROM
    `shop`.`customers`
 WHERE
     `customers`.`rating` >=200;
-
+    
 SELECT 
 `customers`.`cname`,
 `customers`.`city`
@@ -54,7 +54,7 @@ FROM
    `shop`.`customers`
 WHERE
    not `customers`.`rating` = 200;
-
+   
    /* Применение условий отбора для NULL-значений*/
 SELECT 
 `customers`.`cname`,
@@ -100,10 +100,8 @@ FROM
     `shop`.`sales`
 WHERE
     (`sales`.`sdate` > '2024-08-31'
-	        AND `sales`.`sdate` < '2024-10-01')
-	        AND (NOT (`sales`.`sdate` > '2024-09-12'
-				        AND `sales`.`sdate` < '2024-09-16'))
-			        AND NOT cnum = 203 or (cnum=203) and (`sales`.`sdate` > '2024-09-30'
-					        AND `sales`.`sdate` < '2024-10-31');
-
-
+        AND `sales`.`sdate` < '2024-10-01')
+        AND (NOT (`sales`.`sdate` > '2024-09-12'
+        AND `sales`.`sdate` < '2024-09-16'))
+        AND NOT cnum = 203 or (cnum=203) and (`sales`.`sdate` > '2024-09-30'
+        AND `sales`.`sdate` < '2024-10-31');

@@ -44,18 +44,18 @@ WHERE
     `salespeaple`.`comm` BETWEEN 0.09 AND 0.11
         AND NOT `salespeaple`.`comm` IN (0.09 , 0.11);
 
-	SELECT 
-	    `customers`.`cnum`,
-	    `customers`.`cname`,
-	    `customers`.`city`,
-	    `customers`.`rating`,
-	    `customers`.`snum`
-	FROM
-	    `shop`.`customers`
-	WHERE
-	    `customers`.`city` between 'Н' and 'Омск';
+SELECT 
+    `customers`.`cnum`,
+    `customers`.`cname`,
+    `customers`.`city`,
+    `customers`.`rating`,
+    `customers`.`snum`
+FROM
+    `shop`.`customers`
+WHERE
+    `customers`.`city` between 'Н' and 'Омск';
 
-	/* Оператор LIKE */
+/* Оператор LIKE */
 
 /* '%' - любое количество любых символов, '_' - один любой символ */
 
@@ -79,7 +79,7 @@ SELECT
 FROM
     `shop`.`customers`
 WHERE
-    city LIKE 'Нов_%';
+    city LIKE 'Нов_%';customerscustomers;
 
 SELECT 
     `customers`.`cnum`,
@@ -103,19 +103,7 @@ FROM
     `shop`.`customers`
 WHERE
     cname LIKE '%/%%' escape '/';
-
-/*Применение символов ислючения при помощи scape */
-SELECT 
-    `customers`.`cnum`,
-    `customers`.`cname`,
-    `customers`.`city`,
-    `customers`.`rating`,
-    `customers`.`snum`
-FROM
-    `shop`.`customers`
-WHERE
-    cname LIKE '%/%%' escape '/';
-
+    
  /* Оператор Is NULL*/
 
 SELECT 
@@ -196,7 +184,7 @@ SELECT
     SUM(amount)
 FROM
     sales;
-
+    
     /*Подсчёт количества строк */
     SELECT 
     COUNT(*)
@@ -206,7 +194,7 @@ WHERE
     sdate > '2024-09-01'
         AND sdate < '2024-09-30';
 
-	/*Подсчёт среднего значения за определённый период*/
+/*Подсчёт среднего значения за определённый период*/
 SELECT 
     AVG(amount)
 FROM
@@ -215,29 +203,29 @@ WHERE
     sdate > '2024-09-01'
         AND sdate <= '2024-09-30';
 
-	SELECT 
-	    AVG(sdate)
-	FROM
-	    sales
-	    where sdate > '2024-09-15'
-	        AND sdate <= '2024-09-30';
+SELECT 
+    AVG(sdate)
+FROM
+    sales
+    where sdate > '2024-09-15'
+        AND sdate <= '2024-09-30';
 
-		SELECT 
-		    AVG(amount)
-		FROM
-		    sales
-		WHERE
-		    sdate > '2024-09-01'
-		        AND sdate <= '2024-09-30';
+SELECT 
+    AVG(amount)
+FROM
+    sales
+WHERE
+    sdate > '2024-09-01'
+        AND sdate <= '2024-09-30';
 
-			SELECT 
-			    AVG(sdate)
-			FROM
-			    sales
-			    where sdate > '2024-09-15'
-			        AND sdate <= '2024-09-30';
-
-				  /*При использовании distinct внутри функции count() подсчитывается уникальное значение в столбце */      
+SELECT 
+    AVG(sdate)
+FROM
+    sales
+    where sdate > '2024-09-15'
+        AND sdate <= '2024-09-30';
+        
+  /*При использовании distinct внутри функции count() подсчитывается уникальное значение в столбце */      
 SELECT 
     COUNT(distinct city)
 FROM
@@ -267,20 +255,20 @@ FROM
 GROUP BY snum;
 
 /*Группировка значений по нескольким столбцам*/
-SELECT 
-    snum, sdate, MAX(amount)
+SELECT
+	shum,sdate, MAX(amount)
 FROM
-    sales
+	sales
 GROUP BY snum, sdate;
 
-/*Отбор значений после группировки осуществялется с помощью специального выражения HAVING */
-/*WHERE тбирает строки до группировки и не может содержать агрегатные функции */
+/* Отбор значений после группировки осуществляется с помощью специального вырпжения HAVING*/
+/* WHERE отбирает строки до группировки и не может содержать агрегатные функции */
 SELECT 
     snum, sdate, MAX(amount)
 FROM
     sales
 GROUP BY snum , sdate
-HAVING MAX(amount) > 1000;
+HAVING MAX(amount) > 1000;	
 
 SELECT 
     snum, sdate, MAX(amount)
@@ -289,7 +277,7 @@ FROM
 GROUP BY snum , sdate
 HAVING MAX(amount) > 1000;
 
-/*having можно использовать только для сгруппированных столбцов*/
+/* HAVING можно использовать только для сгрупированных столбцов*/
 SELECT 
     snum, sdate, MAX(amount)
 FROM
@@ -297,21 +285,19 @@ FROM
 GROUP BY snum , sdate
 HAVING sdate > '2024-09-15';
 
-/*Если в группировке не используется поле, по которому нужно сделать отбор, то используется только выражение where*/
+/* Если в группировке не используется поле, по которому нужно сделать отбор, то используется только выражение where*/
 SELECT 
-    snum, MAX(amount)
+    snum, sdate, MAX(amount)
 FROM
     sales
-WHERE
-    sdate > '2024-09-15'
+where sdate > '2024-09-15'
 HAVING snum;
 
-/* Использование IN с  HAVING */
+/**/
 SELECT 
     snum, MAX(amount)
 FROM
     sales
-WHERE
-    sdate > '2024-09-15'
-group by snum
-having snum IN (101, 106);
+where sdate > '2024-09-15'
+GROUP by snum
+HAVING snum in (101, 106)
